@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tusar Saini | Portfolio</title>
+    
+    <style>
+        /* --- 1. BASE SETUP & TYPOGRAPHY --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth; /* Smooth scrolling for navigation links */
+        }
+
+        body {
+            background-color: #fcfcfc;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* --- 2. CSS ANIMATIONS (@keyframes) --- */
+        /* Animation to make the hero text slide up on page load */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animation to make the profile picture gently float up and down */
+        @keyframes floatImage {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* --- 3. NAVIGATION BAR (Flexbox) --- */
+        nav {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between; /* Pushes brand left and links right */
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav .brand {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1abc9c;
+        }
+
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.3s ease; /* Transition on hover */
+        }
+
+        nav a:hover {
+            color: #1abc9c;
+        }
+
+        /* --- 4. HERO SECTION (Flexbox) --- */
+        #hero {
+            /* Exact requested gradient background */
+            background: linear-gradient(135deg, #e8f8f5, #f5eef8);
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* 2 Columns */
+            gap: 40px;
+            padding: 60px 10%;
+            overflow: hidden;
+        }
+
+        .hero-text {
+            flex: 1;
+            /* Applying the slideUp animation on load */
+            animation: slideUp 1s ease-out forwards;
+        }
+
+        #hero h1 {
+            font-size: 48px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        #hero p {
+            font-size: 20px;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #1abc9c;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px rgba(26, 188, 156, 0.3);
+        }
+
+        .btn:hover {
+            background-color: #16a085;
+            transform: translateY(-3px); /* Lift button on hover */
+            box-shadow: 0 6px 15px rgba(26, 188, 156, 0.5);
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Circular container with a colorful border and floating animation */
+        .profile-container {
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            /* Gradient background to act as the colorful border */
+            background: linear-gradient(135deg, #1abc9c, #3498db, #9b59b6, #e74c3c);
+            padding: 8px; /* Thickness of the colorful border */
+            animation: floatImage 4s ease-in-out infinite; /* Applying float animation */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .profile-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%; /* Keeps the image circular */
+            border: 4px solid #fff; /* White inner border separating image from gradient */
+        }
+
+        /* --- 5. GENERAL SECTION STYLES --- */
+        section.content-section {
+            padding: 80px 10%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            color: #2c3e50;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: #1abc9c;
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* --- 6. ABOUT SECTION --- */
+        .about-text {
+            text-align: center;
+            font-size: 18px;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        /* --- 7. SKILLS SECTION (CSS Grid) --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 Columns */
+            gap: 20px;
+        }
+
+        .skill-box {
+            padding: 30px 20px;
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-box:hover {
+            transform: scale(1.05); /* Grow slightly on hover */
+        }
+
+        /* Colorful boxes for each skill */
+        .skill-html { background-color: #e74c3c; } /* Red for HTML */
+        .skill-css { background-color: #3498db; }  /* Blue for CSS */
+        .skill-python { background-color: #f1c40f; color: #333; } /* Yellow for Python */
+        .skill-java { background-color: #e67e22; } /* Orange for Java */
+
+        /* --- 8. PROJECTS SECTION (CSS Grid) --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 Columns */
+            gap: 30px;
+        }
+
+        .project-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-top: 5px solid #1abc9c;
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Card hover transitions */
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px); /* Lift card on hover */
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .project-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .project-card p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        /* --- 9. EDUCATION SECTION --- */
+        .education-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .education-item {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 6px solid #3498db;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .education-item h3 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .education-item p {
+            color: #666;
+        }
+
+        /* --- 10. CONTACT SECTION --- */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: #1abc9c;
+        }
+
+        .contact-form button {
+            padding: 15px;
+            background-color: #2c3e50;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background-color: #1abc9c;
+        }
+
+        /* --- 11. FOOTER --- */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+        }
+
+        /* --- 12. RESPONSIVE DESIGN (Mobile Media Queries) --- */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 15px;
+                padding: 20px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            #hero {
+                flex-direction: column-reverse; /* Put text below image on mobile */
+                text-align: center;
+                padding: 60px 5%;
+            }
+
+            .profile-container {
+                width: 260px;
+                height: 260px;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns on tablet/mobile */
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr; /* 1 column on mobile */
+            }
+
+            section.content-section {
+                padding: 60px 5%; /* Less padding on small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION BAR -->
+    <nav>
+        <div class="brand">Tusar Saini</div>
+        <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="hero">
+        <div class="hero-text">
+            <h1>Hello, I'm Tusar Saini</h1>
+            <p>I am a 19-year-old computer science student learning HTML, CSS, Python, and Java.</p>
+            <a href="#projects" class="btn">See My Work</a>
+        </div>
+        
+        <div class="hero-image">
+            <div class="profile-container">
+                <!-- Exact image specified with HTML IMAGE_2.jpeg -->
+                <img src="HTML IMAGE.jpeg" alt="Tusar Saini">
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="content-section">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-text">
+            <p>I am currently a first-year Computer Science student. I enjoy learning about software development, writing clean code, and solving logical problems. When I am not studying or building things for the web, I love going to the gym, drawing, and exploring new technologies.</p>
+        </div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section id="skills" class="content-section">
+        <h2 class="section-title">My Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-box skill-html">HTML</div>
+            <div class="skill-box skill-css">CSS</div>
+            <div class="skill-box skill-python">Python</div>
+            <div class="skill-box skill-java">Java</div>
+        </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section id="projects" class="content-section">
+        <h2 class="section-title">My Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <h3>Gym Routine Tracker</h3>
+                <p>A simple webpage layout designed to log my daily workouts, sets, and reps using standard HTML tables and pure CSS styling.</p>
+            </div>
+
+            <div class="project-card">
+                <h3>Math Formulas Page</h3>
+                <p>A clean, organized reference page built to help study mathematical concepts like probability and algebra formulas.</p>
+            </div>
+
+            <div class="project-card">
+                <h3>Personal Portfolio</h3>
+                <p>This exact website! A responsive, beginner-friendly portfolio built entirely from scratch using HTML5, Flexbox, and CSS Grid.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- EDUCATION SECTION -->
+    <section id="education" class="content-section">
+        <h2 class="section-title">Education</h2>
+        <div class="education-list">
+            <div class="education-item">
+                <h3>Scaler School of Technology</h3>
+                <p>Undergraduate Computer Science Program</p>
+            </div>
+
+            <div class="education-item">
+                <h3>Little Star Senior Secondary School</h3>
+                <p>Higher Secondary Education (PCM)</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="content-section">
+        <h2 class="section-title">Contact Me</h2>
+        <form class="contact-form" action="#" method="get">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email Address" required>
+            <textarea name="message" rows="5" placeholder="Type your message here..." required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 Tusar Saini. Built for Builders Day with HTML & CSS.</p>
+    </footer>
+
+</body>
+</html>
